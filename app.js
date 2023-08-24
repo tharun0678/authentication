@@ -8,7 +8,7 @@ const path = require("path");
 
 const dbPath = path.join(__dirname, "userData.db");
 let db = null;
-
+//Connecting sqlite3 database
 const intializeAndConnectDb = async () => {
   try {
     db = await open({
@@ -23,8 +23,10 @@ const intializeAndConnectDb = async () => {
     process.exit(-1);
   }
 };
+//calling db to connect with database
 intializeAndConnectDb();
 
+//API - 1 to add new user in db
 app.post("/register", async (request, response) => {
   const newUserDetails = request.body;
   const { username, name, password, gender, location } = newUserDetails;
@@ -59,6 +61,7 @@ app.post("/register", async (request, response) => {
   }
 });
 
+//API-2 login valid user
 app.post("/login", async (request, response) => {
   const loginDetails = request.body;
   const { username, password } = loginDetails;
@@ -80,6 +83,7 @@ app.post("/login", async (request, response) => {
   }
 });
 
+//changing old password with new password for valid user
 app.put("/change-password", async (request, response) => {
   const userDetails = request.body;
   const { username, oldPassword, newPassword } = userDetails;
